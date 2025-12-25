@@ -17,8 +17,10 @@ client.once("ready", () => {
 client.on("messageCreate", (message) => {
   if (message.author.bot) return;
 
-  if (message.content === "!ping") {
-    message.reply("Pong! 🏓");
+  if(message.channel.id === process.env.CHANEL_ID){
+    if (message.content === "!ping") {
+        message.reply("Pong! 🏓");
+    }
   }
 });
 
