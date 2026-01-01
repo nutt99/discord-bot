@@ -1,4 +1,4 @@
-import { Client, GatewayIntentBits, Message } from "discord.js";
+import { Client, GatewayIntentBits, ClientEvents } from "discord.js";
 import { Prefix } from '../config/Prefix.js';
 
 
@@ -13,7 +13,8 @@ export class Bot{
             intents: [
                 GatewayIntentBits.Guilds,
                 GatewayIntentBits.GuildMessages,
-                GatewayIntentBits.MessageContent
+                GatewayIntentBits.MessageContent,
+                GatewayIntentBits.GuildVoiceStates,
             ]
         });
 
@@ -24,11 +25,17 @@ export class Bot{
         this.client.login(this.token);
     }
 
-    onceBotStart(event: string, eventHandler: (...args: any[]) => void): void{
+    onceBotStart<K extends keyof ClientEvents>(
+        event: K, 
+        eventHandler: (...args: ClientEvents[K]) => void
+    ): void{
         this.client.once(event, eventHandler);
     }
 
-    botStreamListener(event: string, eventHandler: (...args: any[]) => void) : void{
+    botStreamListener<K extends keyof ClientEvents>(
+        event: K, 
+        eventHandler: (...args: ClientEvents[K]) => void
+    ) : void{
         this.client.on(event, eventHandler);
     }
 }
