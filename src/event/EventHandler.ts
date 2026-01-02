@@ -16,7 +16,7 @@ export class EventHandler{
             console.log("chanel tidak valid")
             return;
         }
-        
+
         if(message.content === this.prefix.test){
             message.reply("Hello Master");
         }
@@ -33,7 +33,7 @@ export class EventHandler{
     private joinVoice(message: Message){
         try{
             if (message.member?.voice.channel) {
-                const voiceInstance = this.vm.joinChanel(message.member.voice.channel);
+                const voiceInstance = this.vm.joinChannel(message.member.voice.channel);
                 message.reply("join ke voice chanel!");
             } 
             else{
@@ -46,11 +46,6 @@ export class EventHandler{
     }
 
     private leaveVoice(message: Message){
-        if(this.vm.leaveChanel()){
-            message.reply("Selamat tinggal master");
-        }
-        else{
-            message.reply("Terjadi kesalahan master");
-        }
+        this.vm.leaveChannel()
     }
 }
